@@ -6,6 +6,24 @@
     <string name="privacy_policy">privacy policy</string>
     <string name="termsconditions"><![CDATA[Terms & Conditions]]></string>
 
+<!--    String Resources for Number Activity-->
+    <string name="phone_number_label">Mobile No</string>
+    <string name="phone_number_prefix">+91</string>
+    <string name="phone__number_button">Login</string>
+
+    <!--    String Resources for OTP Activity-->
+    <string name="otp_label">OTP</string>
+    <string name="verify_otp_button_label">Verify</string>
+    <string name="resend_otp_button_label">Resend</string>
+
+<!--    String Resources for profile acitvity-->
+    <string name="logout_button_label">Logout</string>
+
+
+<!--    Common String-->
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="update">Update</string>
 
     <string name="facebook_app_id">110337933740691</string>
     <string name="fb_login_protocol_scheme">fb110337933740691</string>

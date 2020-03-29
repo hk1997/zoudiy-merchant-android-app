@@ -17,4 +17,11 @@ public class Preference {
         SharedPreferences sharedPreferences = context.getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
         return sharedPreferences.getString("ACCESSTOKEN", null);
     }
+
+    public static void removeAccessToken(@NonNull Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ACCESSTOKEN", null);
+        editor.apply();
+    }
 }
