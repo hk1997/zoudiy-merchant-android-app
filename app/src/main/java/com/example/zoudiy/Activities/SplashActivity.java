@@ -7,6 +7,8 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.zoudiy.utils.Preference;
+
 public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +23,19 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // This method will be executed once the timer is over
-                Intent i = new Intent(SplashActivity.this, number.class);
-                startActivity(i);
-                finish();
+                // if no access token is found, user needs to login
+                if(Preference.getAccessToken(SplashActivity.this)==null){
+                    Intent i = new Intent(SplashActivity.this, number.class);
+                    startActivity(i);
+                    finish();
+                }
+                else{
+                    Intent i = new Intent(SplashActivity.this, profile.class);
+                    startActivity(i);
+                    finish();
+                }
+
             }
-        }, 3000);
+        }, 1000);
     }
 }

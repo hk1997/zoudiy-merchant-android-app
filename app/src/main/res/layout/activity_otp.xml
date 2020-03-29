@@ -4,64 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
-    tools:context=".otp">
+    android:background="@android:color/white"
+    tools:context=".otp" >
 
-    <com.goodiebag.pinview.Pinview
-        android:id="@+id/pinview"
-        android:layout_width="0dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_layout_otp"
+        android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
-        app:cursorVisible="false"
-        app:forceKeyboard="true"
-        app:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/otp"
-        app:password="false"
-        app:pinBackground="@drawable/background_otp"
-        app:pinHeight="40dp"
-        app:pinLength="6"
-        app:pinWidth="40dp"
-        app:textSize="9dp" />
-
-    <TextView
-        android:id="@+id/otp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:text="Verify your otp"
-        android:textAllCaps="true"
-        android:textColor="#1E645F"
-        android:textColorHighlight="#1E645F"
-        android:textColorHint="#1E645F"
-        android:textColorLink="#1E645F"
-        android:textSize="24dp"
-        android:textStyle="bold"
+        android:hint="@string/otp_label"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.438"
+        app:counterEnabled="true"
+        app:counterMaxLength="6"
+        app:errorEnabled="true"
+        app:endIconMode="clear_text"
+        >
 
-    <TextView
-        android:id="@+id/no_otp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_layout_phone_holder"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.264">
+
+        <TextView
+            android:id="@+id/text_view_phone_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/button_verify_otp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginLeft="42dp"
-        android:text="Didn't got Otp?"
-        android:textAllCaps="true"
-        android:textColor="#1E645F"
-        android:textSize="16dp"
+        android:layout_marginStart="288dp"
+        android:layout_marginLeft="288dp"
+        android:text="@string/verify_otp_button_label"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pinview"
-        app:layout_constraintVertical_bias="0.113" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.571"
+        android:onClick="verifyOtp"
+        />
 
+    <Button
+        android:id="@+id/button_resend_otp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="184dp"
+        android:layout_marginLeft="184dp"
+        android:text="@string/resend_otp_button_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.571"
+        android:onClick="resendOtp"
+        />
+
+    <TextView
+        android:id="@+id/text_vew_timer_otp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.568" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

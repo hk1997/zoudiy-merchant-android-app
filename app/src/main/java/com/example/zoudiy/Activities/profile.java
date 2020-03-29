@@ -10,72 +10,110 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.zoudiy.Models.ApiResponse;
 import com.example.zoudiy.utils.Preference;
 import com.example.zoudiy.utils.RetrofitClient;
 import com.example.zoudiy.utils.example;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class profile extends AppCompatActivity {
-  Button but1;
-  EditText ed1,ed2;
-  String token,emailid,fullname;
+
+    Button buttonLogout;
+    Button buttonUpdate;
+    EditText emailEditText, nameEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        but1=(Button) findViewById(R.id.button2) ;
-        ed1=(EditText) findViewById(R.id.editText);
-        ed2=(EditText) findViewById(R.id.editText4);
-        but1.setOnClickListener(new View.OnClickListener() {
+        buttonLogout = findViewById(R.id.button_profile_logout);
+        buttonUpdate = findViewById(R.id.button_profile_update);
+        emailEditText = findViewById(R.id.edit_text_profile_email);
+        nameEditText = findViewById(R.id.edit_text_profile_name);
+    }
+
+    /**
+     * Logout button handler
+     * @param v
+     */
+    public void logout(View v){
+        Preference.removeAccessToken(this);
+        Intent intent = new Intent(this,number.class);
+        startActivity(intent);
+    }
+    /**
+     *  Function to make call to update api
+     */
+    private void updateApi(String name, String email){
+        String token = Preference.getAccessToken(profile.this);
+        token = token.substring(1,token.length()-1);
+        Log.d("token in profile",token);
+        Call<ApiResponse> call = RetrofitClient
+                .getInstance()
+                .getApi().updateProfile(name,email,token);
+        // making both button invisible to prevent user intervention
+        Toast.makeText(this, "Updating Profile",Toast.LENGTH_SHORT).show();
+        buttonUpdate.setVisibility(View.INVISIBLE);
+        call.enqueue(new Callback<ApiResponse>() {
             @Override
-            public void onClick(View v) {
-                token= Preference.getAccessToken(profile.this);
-                String emailPattern="[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                emailid = ed2.getText().toString();
-                fullname = ed1.getText().toString();
-                Boolean isValid=  emailid.matches(emailPattern);
-                if(emailid!=null && fullname!=null && emailid.matches(emailPattern)) {
-
-                    Call<example> call = RetrofitClient
-                            .getInstance()
-                            .getApi()
-                            .SaveProfile(emailid, fullname, token);
-                    Log.d("token", token);
-                    call.enqueue(new Callback<example>() {
-                        @Override
-                        public void onResponse(Call<example> call, Response<example> response) {
-                            example responseBody = response.body();
-                            Log.d("profile response", responseBody.getMessage() + " " + responseBody.getSuccess());
-                            if (responseBody.getSuccess() == true) {
-                                Toast.makeText(profile.this, "Profile Saved", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(profile.this, services.class);
-                                startActivity(intent);
-                                Log.d("yo here", "jsanfsanfkasf");
-                            } else {
-                                Toast.makeText(profile.this, "Incorrect Data", Toast.LENGTH_LONG).show();
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<example> call, Throwable t) {
-                            Log.d("Error", t.toString());
-                        }
-                    });
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                try {
+                    Log.d("body of",response.body().getSuccess().toString());
+                    Log.d("body of",response.body().getMessage().toString());
+//                    Log.d("body of 2",);
+                    if(response.body().getSuccess()){
+                        Toast.makeText(profile.this, "Profile Updated Successfully",Toast.LENGTH_SHORT).show();
+                        // redirect somewhere
+                    }
+                    else{
+                        Toast.makeText(profile.this,response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                        buttonUpdate.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                else{
-                    Toast.makeText(profile.this,"Please provide valid Email Id",Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                Log.d("Failure",t.toString());
+
+                Toast.makeText(profile.this, "Some error occured",Toast.LENGTH_SHORT).show();
+                buttonUpdate.setVisibility(View.VISIBLE);
             }
         });
     }
 
+    /**
+     * Update button handler
+     * @param v
+     */
+    public void update(View v){
+        if(nameEditText==null || emailEditText == null)
+            return;
+        String name = nameEditText.getText().toString();
+        String email = emailEditText.getText().toString();
+        String emailRegex="[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        //validating name and email
+        if(name.length()==0){
+            Toast.makeText(this,"Name is required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(email.length()==0 || !email.matches(emailRegex)){
+            Toast.makeText(this,"Invalid E-mail", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        updateApi(name, email);
+    }
+
     @Override
     public void onBackPressed(){
-
+        // do nothing on back press
     }
 }

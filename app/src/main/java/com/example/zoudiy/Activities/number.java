@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.zoudiy.Activities.R;
 import com.example.zoudiy.Activities.otp;
+import com.example.zoudiy.Models.ApiResponse;
 import com.example.zoudiy.utils.RetrofitClient;
 
 import java.io.IOException;
@@ -21,63 +24,55 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class number extends AppCompatActivity {
-    private EditText MobileNo;
-    private String mobileNo;
+    private EditText phoneNoEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_number);
 
-        MobileNo = (EditText) findViewById(R.id.editText3);
-        MobileNo.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        phoneNoEditText= findViewById(R.id.edit_text_phone_no);
 
-            }
+    }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.length()==10)
-                {
-                    mobileNo = "+91" + " " + MobileNo.getText().toString();
-                    Call<ResponseBody> call = RetrofitClient
-                            .getInstance()
-                            .getApi()
-                            .Sendotp(mobileNo);
-                    call.enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            try {
-                                String s = response.body().string();
-                                Log.d("Success",s);
-                                Intent intent= new Intent(number.this, otp.class);
-                                intent.putExtra("Mobile_no", mobileNo);
-                                startActivity(intent);
-                                //Toast.makeText(Login.this, s, Toast.LENGTH_LONG).show();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
+    public void sendOtp(View v){
+        if(phoneNoEditText==null)
+            return;
+        String regex = "\\d+";
 
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            Log.d("Failure",t.toString());
-                            //Toast.makeText(Login.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
+        if(phoneNoEditText.getText().toString().length()==10 && phoneNoEditText.getText().toString().matches(regex)){
 
+            final String phone = "+91 "+phoneNoEditText.getText().toString();
+            Call<ApiResponse> call = RetrofitClient
+                    .getInstance()
+                    .getApi()
+                    .Sendotp(phone);
+            call.enqueue(new Callback<ApiResponse>() {
+                @Override
+                public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                    try {
+                        Log.d("Number Activity","Request Successful");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                else if(s.length()<10)
-                {
-                    return;
+
+                @Override
+                public void onFailure(Call<ApiResponse> call, Throwable t) {
+                    Log.d("Failure",t.toString());
+                    //Toast.makeText(Login.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 }
-            }
-        });
+            });
+            //loading new view while request is sent asynchonously
+            Intent intent= new Intent(number.this, otp.class);
+            intent.putExtra("phone", phone);
+            startActivity(intent);
+
+        }
+        else{
+            Toast.makeText(this,"Invalid mobile number",Toast.LENGTH_SHORT).show();
+        }
     }
 }
