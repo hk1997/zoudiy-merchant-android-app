@@ -1,9 +1,8 @@
 package com.example.zoudiy.Interfaces;
 
 import com.example.zoudiy.Models.ApiResponse;
-import com.example.zoudiy.utils.example;
+import com.example.zoudiy.Models.VehicleResponse;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -32,6 +31,22 @@ public interface JsonPlaceholderApi {
                (
                     @Field("name") String name,
                     @Field("email") String email,
+                    @Field("token") String token
+            );
+
+    @FormUrlEncoded
+    @POST("travel/vehicle/add-vehicle")
+    Call<ApiResponse> addVehicle
+            (
+                    @Field("vehicleNo") String vehicleNo,
+                    @Field("type") String type,
+                    @Field("token") String token
+            );
+
+    @FormUrlEncoded
+    @POST("travel/vehicle/get-vehicle")
+    Call<VehicleResponse> getVehicle
+            (
                     @Field("token") String token
             );
 
