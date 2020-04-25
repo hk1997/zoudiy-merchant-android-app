@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,10 +32,13 @@ public class ManageVehicle extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.manage_vehicle_fragment, container, false);
-        //initializing view model
-        mViewModel = new ViewModelProvider(this).get(ManageVehicleViewModel.class);
-        //setting access token for request handling
-        mViewModel.setToken(Preference.getAccessToken(getContext()));
+
+        if (mViewModel == null) {
+            mViewModel = new ViewModelProvider(this).get(ManageVehicleViewModel.class);
+            //setting access token for request handling
+            mViewModel.setToken(Preference.getAccessToken(getContext()));
+        }
+
 
         buttonAddVehicle = view.findViewById(R.id.button_add_vehicle);
         buttonAddVehicle.setOnClickListener(new View.OnClickListener() {
@@ -63,12 +65,13 @@ public class ManageVehicle extends Fragment {
         return view;
     }
 
-
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ManageVehicleViewModel.class);
-        // TODO: Use the ViewModel
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(ManageVehicleViewModel.class);
+        //setting access token for request handling
+        String token = Preference.getAccessToken(getContext());
+        mViewModel.setToken(Preference.getAccessToken(getContext()));
     }
 
 }

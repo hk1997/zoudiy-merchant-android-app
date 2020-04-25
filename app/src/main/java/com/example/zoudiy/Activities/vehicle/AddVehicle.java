@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.example.zoudiy.Activities.R;
@@ -45,8 +44,10 @@ public class AddVehicle extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_vehicle_fragment, container, false);
-        mViewModel = new ViewModelProvider(this).get(AddVehicleViewModel.class);
 
+        if (mViewModel == null) {
+            mViewModel = new ViewModelProvider(this).get(AddVehicleViewModel.class);
+        }
         // code for dropdown section
         editTextFilledExposedDropdown =
                 view.findViewById(R.id.filled_exposed_dropdown);
@@ -157,10 +158,9 @@ public class AddVehicle extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(AddVehicleViewModel.class);
-        // TODO: Use the ViewModel
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(AddVehicleViewModel.class);
     }
 
 }

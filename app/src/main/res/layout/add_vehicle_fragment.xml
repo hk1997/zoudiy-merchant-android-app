@@ -5,39 +5,59 @@
     android:layout_height="match_parent"
     tools:context=".Activities.AddVehicle">
 
-
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="55dp"
-        android:hint="@string/vehicle_number"
-        android:padding="16dp">
+        android:orientation="vertical"
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_vehicle_no_addVehicleFragment"
+        >
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/fill_details"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
 
-    <include
-        layout="@layout/dropdown_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginRight="55dp"
-        android:layout_marginBottom="55dp"
-        android:padding="16dp" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="6dp"
+            android:hint="@string/vehicle_number">
 
-    <Button
-        android:id="@+id/button_add_vehicle_addVehicleFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="215dp"
-        android:text="@string/button_add_vehicle_addVehicleFragment" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_vehicle_no_addVehicleFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <include
+            layout="@layout/dropdown_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="6dp" />
+
+        <Button
+            android:id="@+id/button_add_vehicle_addVehicleFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/button_add_vehicle_addVehicleFragment" />
+    </LinearLayout>
 
 </FrameLayout>

@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".Activities.ManageTrip">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/manage_trip_fragment_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_add_trip"

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class Data {
+public class DataVehicle {
     @SerializedName("vehicles")
     @Expose
     private ArrayList<Vehicle> vehicleList;

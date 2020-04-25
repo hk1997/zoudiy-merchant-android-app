@@ -24,6 +24,10 @@
             android:id="@+id/nav_trip"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_trip" />
+        <item
+            android:id="@+id/manageRequest"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Manage Request" />
 
     </group>
 </menu>

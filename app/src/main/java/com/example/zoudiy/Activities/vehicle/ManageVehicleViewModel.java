@@ -34,15 +34,25 @@ public class ManageVehicleViewModel extends ViewModel {
         return vehicleList;
     }
 
-    public void setToken(String s) {
-        this.token = s;
+    public void setToken(String token) {
+        token = token.substring(1, token.length() - 1);
+        this.token = token;
+    }
+
+    /**
+     * Function that returns item at position pos in vehicle list
+     *
+     * @param pos
+     * @return
+     */
+    public Vehicle getVehicle(int pos) {
+        return this.getVehicleList().getValue().get(pos);
     }
 
     /**
      * Function calls api to retrieve  vehicle list
      */
     public void handleRequest() {
-        token = token.substring(1, token.length() - 1);
         Call<VehicleResponse> call = RetrofitClient
                 .getInstance()
                 .getApi()

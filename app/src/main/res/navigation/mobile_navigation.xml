@@ -51,7 +51,12 @@
     <fragment
         android:id="@+id/addTrip"
         android:name="com.example.zoudiy.Activities.trip.AddTrip"
-        android:label="AddTrip" />
+        android:label="AddTrip">
+        <action
+            android:id="@+id/action_addTrip_to_nav_trip"
+            app:destination="@id/nav_trip"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/manageVehicle"
         android:name="com.example.zoudiy.Activities.vehicle.ManageVehicle"
@@ -68,4 +73,8 @@
             android:id="@+id/action_addVehicle_to_manageVehicle"
             app:destination="@id/manageVehicle" />
     </fragment>
+    <fragment
+        android:id="@+id/manageRequest"
+        android:name="com.example.zoudiy.Activities.request.ManageRequest"
+        android:label="ManageRequest" />
 </navigation>

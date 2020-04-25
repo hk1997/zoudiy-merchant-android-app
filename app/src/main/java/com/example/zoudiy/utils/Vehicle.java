@@ -1,9 +1,13 @@
 package com.example.zoudiy.utils;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Vehicle {
+
+
     @SerializedName("type")
     @Expose
     private String type;
@@ -42,4 +46,13 @@ public class Vehicle {
         this.vehicleNo = vehicleNo;
     }
 
+    public String get_id() {
+        return _id;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.vehicleNo + " [" + this.type + "]";
+    }
 }
