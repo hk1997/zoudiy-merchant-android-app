@@ -1,10 +1,10 @@
 package com.example.zoudiy.Activities.trip;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zoudiy.Activities.R;
+import com.example.zoudiy.Activities.TripDetailsViewModel;
 import com.example.zoudiy.adapters.TripInfoAdapter;
 import com.example.zoudiy.utils.Preference;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,7 +27,7 @@ public class ManageTrip extends Fragment {
     private FloatingActionButton buttonAddTrip;
     private TripInfoAdapter listAdapter;
     private RecyclerView recycler;
-
+    private TripDetailsViewModel selectedTripViewModel;
 
 
     @Override
@@ -39,12 +40,21 @@ public class ManageTrip extends Fragment {
             mViewModel = new ViewModelProvider(this).get(ManageTripViewModel.class);
             //setting access token for request handling
             mViewModel.setToken(Preference.getAccessToken(getContext()));
+            selectedTripViewModel = new ViewModelProvider(getActivity()).get(TripDetailsViewModel.class);
+            selectedTripViewModel.setToken(Preference.getAccessToken(getContext()));
         }
 
         recycler = view.findViewById(R.id.manage_trip_fragment_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recycler.setLayoutManager(layoutManager);
-        listAdapter = new TripInfoAdapter(mViewModel.getTripList().getValue(), getContext());
+        listAdapter = new TripInfoAdapter(mViewModel.getTripList().getValue(), getContext(), new TripInfoAdapter.OnItemClick() {
+            @Override
+            public void navigateToDetail(int pos) {
+                Log.d("here", "there " + pos);
+                selectedTripViewModel.setTripInfo(mViewModel.getTripList().getValue().get(pos));
+                Navigation.findNavController(view).navigate(R.id.action_nav_trip_to_tripDetails);
+            }
+        });
         recycler.setAdapter(listAdapter);
 
         mViewModel.getTripList().observe(getViewLifecycleOwner(), vehicles -> {
@@ -57,7 +67,7 @@ public class ManageTrip extends Fragment {
         buttonAddTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "here", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "here", Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(v).navigate(R.id.action_nav_trip_to_addTrip);
             }
         });
@@ -72,5 +82,8 @@ public class ManageTrip extends Fragment {
         mViewModel = new ViewModelProvider(this).get(ManageTripViewModel.class);
         //setting access token for request handling
         mViewModel.setToken(Preference.getAccessToken(getContext()));
+
+        selectedTripViewModel = new ViewModelProvider(getActivity()).get(TripDetailsViewModel.class);
+        selectedTripViewModel.setToken(Preference.getAccessToken(getContext()));
     }
 }

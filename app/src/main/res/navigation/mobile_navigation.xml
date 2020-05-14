@@ -47,6 +47,9 @@
         <action
             android:id="@+id/action_nav_trip_to_addTrip"
             app:destination="@id/addTrip" />
+        <action
+            android:id="@+id/action_nav_trip_to_tripDetails"
+            app:destination="@id/tripDetails" />
     </fragment>
     <fragment
         android:id="@+id/addTrip"
@@ -77,4 +80,8 @@
         android:id="@+id/manageRequest"
         android:name="com.example.zoudiy.Activities.request.ManageRequest"
         android:label="ManageRequest" />
+    <fragment
+        android:id="@+id/tripDetails"
+        android:name="com.example.zoudiy.Activities.TripDetails"
+        android:label="TripDetails" />
 </navigation>

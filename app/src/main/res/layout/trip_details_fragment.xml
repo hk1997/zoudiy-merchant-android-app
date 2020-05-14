@@ -5,9 +5,91 @@
     android:layout_height="match_parent"
     tools:context=".Activities.TripDetails">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="6dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Destination" />
+
+        <TextView
+            android:id="@+id/trip_details_fragment_dest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bishop Conrad Senior Secondary School fnasfkfiasfia"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Time" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trip Type" />
+
+        <TextView
+            android:id="@+id/trip_details_fragment_trip_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bishop Conrad Senior Secondary School fnasfkfiasfia"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/trip_details_fragment_start_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6-00"
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Weekly Schedule" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/trip_details_fragment_weekly_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Areas Covered" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/trip_details_fragment_areas_covered"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kids" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trip_details_fragment_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/trip_details_fragment_start_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Trip" />
+
+    </LinearLayout>
 
 </FrameLayout>

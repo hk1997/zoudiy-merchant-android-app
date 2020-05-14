@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class TripInfo {
     @SerializedName("areasCovered")
     @Expose
-    String[] areasCovered;
+    ArrayList<String> areasCovered;
 
     @SerializedName("kids")
     @Expose
@@ -54,7 +54,7 @@ public class TripInfo {
         return vehicle;
     }
 
-    public String[] getAreasCovered() {
+    public ArrayList<String> getAreasCovered() {
         return areasCovered;
     }
 

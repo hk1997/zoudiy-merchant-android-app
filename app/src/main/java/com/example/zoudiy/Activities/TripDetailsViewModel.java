@@ -2,9 +2,33 @@ package com.example.zoudiy.Activities;
 
 import androidx.lifecycle.ViewModel;
 
+import com.example.zoudiy.utils.TripInfo;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class TripDetailsViewModel extends ViewModel {
     // TODO: Implement the ViewModel
-    String token;
+    private String token;
+    private TripInfo tripInfo;
+    private ArrayList<String> weekList;
+
+    public TripDetailsViewModel() {
+        String[] temp = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        this.weekList = new ArrayList<>(Arrays.asList(temp));
+    }
+
+    public ArrayList<String> getWeekList() {
+        return weekList;
+    }
+
+    public TripInfo getTripInfo() {
+        return tripInfo;
+    }
+
+    public void setTripInfo(TripInfo tripInfo) {
+        this.tripInfo = tripInfo;
+    }
 
     public String getToken() {
         return token;

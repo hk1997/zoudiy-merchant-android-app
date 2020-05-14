@@ -17,10 +17,12 @@ import java.util.ArrayList;
 public class TripInfoAdapter extends RecyclerView.Adapter<TripInfoAdapter.TripInfoViewHolder> {
     private ArrayList<TripInfo> tripInfoList;
     private Context mContext;
+    private OnItemClick onItemClick;
 
-    public TripInfoAdapter(ArrayList<TripInfo> tripInfoList, Context mContext) {
+    public TripInfoAdapter(ArrayList<TripInfo> tripInfoList, Context mContext, OnItemClick onItemClick) {
         this.tripInfoList = tripInfoList;
         this.mContext = mContext;
+        this.onItemClick = onItemClick;
     }
 
     public void setTripInfoList(ArrayList<TripInfo> tripInfoList) {
@@ -43,8 +45,9 @@ public class TripInfoAdapter extends RecyclerView.Adapter<TripInfoAdapter.TripIn
         holder.setVehicle(trip.getVehicle().getVehicleNo() + " [" + trip.getVehicle().getType() + "]");
         Integer capacity = new Integer(trip.getCapacity());
         holder.setCapacity(capacity.toString());
+        int availableCapacity = capacity - (trip.getKids() == null ? 0 : trip.getKids().size());
 //        int availableCapacity = (int)capacity - trip.getKids().length;
-        holder.setAvailableCapacity("yo");
+        holder.setAvailableCapacity(Integer.toString(availableCapacity));
     }
 
     @Override
@@ -52,6 +55,10 @@ public class TripInfoAdapter extends RecyclerView.Adapter<TripInfoAdapter.TripIn
         return tripInfoList.size();
     }
 
+
+    public interface OnItemClick {
+        void navigateToDetail(int pos);
+    }
 
     public class TripInfoViewHolder extends RecyclerView.ViewHolder {
 
@@ -63,6 +70,12 @@ public class TripInfoAdapter extends RecyclerView.Adapter<TripInfoAdapter.TripIn
             vehicle = itemView.findViewById(R.id.trip_info_vehicle);
             capacity = itemView.findViewById(R.id.trip_info_capacity);
             availableCapacity = itemView.findViewById(R.id.trip_info_available_capacity);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClick.navigateToDetail(getAdapterPosition());
+                }
+            });
         }
 
         public void setDest(String dest) {
